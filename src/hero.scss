@@ -1,4 +1,5 @@
 body {
+  position: relative;
   font-family: sans-serif;
   font-size: 1rem;
   color: #181818;
@@ -116,6 +117,7 @@ ul {
 }
 
 table {
+  width: 100%;
   margin-bottom:  2rem;
 
   tr {
@@ -126,6 +128,32 @@ table {
 
     &:nth-type(even) {
       background: whitesmoke;
+    }
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 50%;
+  margin-left: -25%;
+  border: 1px solid;
+  background: white;
+  text-align: center;
+
+  .wrapper {
+    width: 100%;
+    padding: 1rem;
+    font-family: monospace;
+    text-align: left;
+
+    textarea {
+      width: 96%;
+      height: 100px;
     }
   }
 }
