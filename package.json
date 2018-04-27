@@ -1,0 +1,40 @@
+{
+  "name": "hero",
+  "version": "1.0.0",
+  "description": "Speed, initiative, and hit-point tracker for HERO RPG games",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.js",
+    "webpack:watch": "./node_modules/.bin/webpack --config webpack.config.js --watch --progress",
+    "build-task:scss-compile": "node-sass-chokidar src -o dist",
+    "sass:build": "npm-run-all -p build-task:*",
+    "sass:watch": "chokidar 'src/**/*.scss' -c 'npm run sass:build'",
+    "dev": "npm run webpack && npm-run-all -p sass:* webpack:watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/downzer0/hero.git"
+  },
+  "keywords": [
+    "hero",
+    "rpg",
+    "tool"
+  ],
+  "author": "downzer0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/downzer0/hero/issues"
+  },
+  "homepage": "https://github.com/downzer0/hero#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
+    "babel-loader": "^8.0.0-beta.2",
+    "chokidar-cli": "^1.2.0",
+    "node-sass-chokidar": "^1.2.2",
+    "npm-run-all": "^4.1.2",
+    "postcss-cli": "^5.0.0",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
+  }
+}
