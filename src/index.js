@@ -7,11 +7,17 @@ let data = [
     name: "dz0",
     dex: 10,
     speed: 2,
+    body: 0,
+    stun: 0,
+    end: 0,
     order: 0
   }, {
     name: "logan",
     dex: 4,
     speed: 8,
+    body: 0,
+    stun: 0,
+    end: 0,
     order: 1
   }
 ];
@@ -83,11 +89,17 @@ const loadPlayers = () => {
   const nameHeader = headerRow.appendChild(document.createElement('th'));
   const dexHeader = headerRow.appendChild(document.createElement('th'));
   const speedHeader = headerRow.appendChild(document.createElement('th'));
+  const bodyHeader = headerRow.appendChild(document.createElement('th'));
+  const endHeader = headerRow.appendChild(document.createElement('th'));
+  const stunHeader = headerRow.appendChild(document.createElement('th'));
   const actionsHeader = headerRow.appendChild(document.createElement('th'));
 
   nameHeader.innerHTML = 'Player';
   dexHeader.innerHTML = 'Dex';
   speedHeader.innerHTML = 'Speed';
+  bodyHeader.innerHTML = 'Body';
+  endHeader.innerHTML = 'End';
+  stunHeader.innerHTML = 'Stun';
   actionsHeader.innerHTML = 'Actions';
 
   data.forEach((piece, index) => {
@@ -95,6 +107,9 @@ const loadPlayers = () => {
     row.insertCell(0).appendChild(document.createTextNode(piece.name));
     row.insertCell(1).appendChild(document.createTextNode(piece.dex));
     row.insertCell(2).appendChild(document.createTextNode(piece.speed));
+    row.insertCell(3).appendChild(document.createTextNode(piece.body));
+    row.insertCell(4).appendChild(document.createTextNode(piece.end));
+    row.insertCell(5).appendChild(document.createTextNode(piece.stun));
 
     const button = document.createElement('button');
     const buttonText = document.createTextNode('Remove');
@@ -102,7 +117,7 @@ const loadPlayers = () => {
     button.setAttribute('type', 'button');
     button.setAttribute('data-index', index);
     button.classList.add('remove');
-    row.insertCell(3).appendChild(button);
+    row.insertCell(6).appendChild(button);
   });
 
   players.appendChild(table);
@@ -114,8 +129,11 @@ const addPlayer = () => {
   const name = document.querySelector('#new-player');
   const speed = document.querySelector('#new-player-speed');
   const dex = document.querySelector('#new-player-dex');
+  const body = document.querySelector('#new-player-body');
+  const end = document.querySelector('#new-player-end');
+  const stun = document.querySelector('#new-player-stun');
 
-  if (!name.value || !speed.value || !dex.value) {
+  if (!name.value || !speed.value || !dex.value || !body.value || !end.value || !stun.value) {
     return false;
   }
 
@@ -123,12 +141,18 @@ const addPlayer = () => {
     name: name.value,
     dex: dex.value,
     speed: speed.value,
+    body: body.value,
+    end: end.value,
+    stun: stun.value,
     order: data.length + 1
   });
 
   name.value = '';
   speed.value = '';
   dex.value ='';
+  body.value ='';
+  end.value ='';
+  stun.value ='';
 
   loadPlayers();
 };
@@ -146,6 +170,27 @@ const calculateTurnOrder = () => {
   if (!data || !data.length) {
     return turnOrder.innerHTML = 'Add some players first.';
   }
+
+  const table = document.createElement('table');
+  const thead = table.createTHead();
+  const headerRow = thead.insertRow(0);
+
+  const nameHeader = headerRow.appendChild(document.createElement('th'));
+  const hpHeader = headerRow.appendChild(document.createElement('th'));
+  const orderHeader = headerRow.appendChild(document.createElement('th'));
+
+  nameHeader.innerHTML = 'Player';
+  hpHeader.innerHTML = 'HP';
+  orderHeader.innerHTML = 'Order';
+
+  data.forEach((piece, index) => {
+    const row = table.insertRow(table.rows.length);
+    row.insertCell(0).appendChild(document.createTextNode(piece.name));
+    row.insertCell(1).appendChild(document.createTextNode('0'));
+    row.insertCell(2).appendChild(document.createTextNode(piece.order + 1));
+  });
+
+  turnOrder.appendChild(table);
 };
 
 const clear = () => {
